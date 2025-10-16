@@ -8,16 +8,19 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --light: #ecf0f1;
+            --primary: #4a4a3a;
+            --accent: #7a9b76;
+            --light: #f5f3ef;
+            --warm-bg: #faf8f5;
+            --green-soft: #8fae8d;
+            --brown-soft: #b8a896;
         }
 
         body {
             font-family: 'Helvetica Neue', Arial, 'PingFang SC', sans-serif;
             line-height: 1.7;
             color: var(--primary);
-            background: #fff;
+            background: var(--warm-bg);
             font-size: 15px;
         }
 
@@ -48,23 +51,28 @@
         .lang-btn:hover { background: var(--light); }
         .lang-btn.active { background: var(--accent); color: white; }
 
-        .container { max-width: 1200px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; }
 
         .header {
+            position: relative;
             display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 50px;
+            grid-template-columns: 280px 1fr 200px;
+            gap: 40px;
             padding: 100px 60px 50px;
             align-items: center;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e8e6e1;
+            background: linear-gradient(135deg, rgba(143, 174, 141, 0.08) 0%, rgba(245, 243, 239, 0.95) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%238fae8d" opacity="0.1" width="1200" height="400"/><path fill="%237a9b76" opacity="0.05" d="M0,100 Q300,50 600,100 T1200,100 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
         }
 
         .photo-wrapper {
             width: 280px;
-            height: 350px;
-            border-radius: 2px;
+            height: 280px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(122, 155, 118, 0.2);
             transition: transform 0.4s;
         }
 
@@ -89,9 +97,46 @@
             color: var(--accent);
         }
 
+        /* Navigation Menu */
+        .nav-menu {
+            position: sticky;
+            top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            align-self: start;
+        }
+
+        .nav-menu h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--light);
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
         .content { padding: 0 60px 60px; }
 
-        .section { margin-top: 50px; }
+        .section { margin-top: 50px; scroll-margin-top: 20px; }
 
         .section-title {
             font-size: 19px;
@@ -101,7 +146,7 @@
             color: var(--primary);
             margin-bottom: 25px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e8e6e1;
             position: relative;
         }
 
@@ -123,20 +168,55 @@
         }
 
         .comp-card {
-            background: #fafafa;
+            background: var(--warm-bg);
             padding: 25px;
             border-left: 3px solid var(--accent);
             transition: all 0.3s;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
         }
 
         .comp-card:hover {
-            background: #f5f5f5;
+            background: var(--light);
             transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(122, 155, 118, 0.15);
         }
 
         .comp-icon { font-size: 30px; margin-bottom: 10px; }
         .comp-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
         .comp-desc { font-size: 13px; color: #666; line-height: 1.6; }
+
+        .comp-expand {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .comp-card:hover .comp-expand { transform: rotate(90deg); }
+
+        .comp-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            margin-top: 0;
+        }
+
+        .comp-details.active {
+            max-height: 500px;
+            margin-top: 15px;
+        }
+
+        .comp-detail-content {
+            padding-top: 15px;
+            border-top: 1px solid #e8e6e1;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.8;
+        }
 
         .projects-grid {
             display: grid;
@@ -146,22 +226,24 @@
         }
 
         .project-card {
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border: 1px solid #e8e6e1;
+            border-radius: 8px;
             overflow: hidden;
             transition: all 0.4s;
             cursor: pointer;
+            background: white;
         }
 
         .project-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 12px 35px rgba(122, 155, 118, 0.2);
+            border-color: var(--accent);
         }
 
         .project-img {
             width: 100%;
             height: 180px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8fae8d 0%, #7a9b76 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -169,8 +251,8 @@
             color: white;
         }
 
-        .project-img.socks { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .project-img.pets { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .project-img.socks { background: linear-gradient(135deg, #b8a896 0%, #a89884 100%); }
+        .project-img.pets { background: linear-gradient(135deg, #9fb89f 0%, #8fae8d 100%); }
 
         .project-content { padding: 20px; }
         .project-title { font-size: 16px; font-weight: 500; margin-bottom: 10px; }
@@ -248,8 +330,16 @@
 
         .edu-card {
             padding: 22px;
-            background: #fafafa;
+            background: var(--warm-bg);
             border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .edu-card:hover {
+            background: var(--light);
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(122, 155, 118, 0.15);
         }
 
         .degree { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
@@ -264,8 +354,16 @@
 
         .skill-card {
             padding: 18px;
-            background: #fafafa;
+            background: var(--warm-bg);
             border-top: 2px solid var(--accent);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(122, 155, 118, 0.15);
         }
 
         .skill-name {
@@ -279,7 +377,7 @@
         .skill-list { font-size: 13px; color: #666; line-height: 1.7; }
 
         .highlight {
-            background: linear-gradient(120deg, #e3f2fd 0%, #e3f2fd 100%);
+            background: linear-gradient(120deg, #e8f5e7 0%, #e8f5e7 100%);
             background-size: 100% 40%;
             background-position: 0 85%;
             background-repeat: no-repeat;
@@ -304,7 +402,7 @@
         .modal-content {
             background: white;
             padding: 35px;
-            border-radius: 4px;
+            border-radius: 8px;
             max-width: 700px;
             max-height: 85vh;
             overflow-y: auto;
@@ -332,6 +430,7 @@
                 text-align: center;
             }
             .photo-wrapper { margin: 0 auto; }
+            .nav-menu { display: none; }
         }
 
         @media (max-width: 768px) {
@@ -353,66 +452,153 @@
         <div class="lang-content active" data-lang-content="zh">
             <header class="header">
                 <div class="photo-wrapper">
-                    <img src="assets/photo1.jpg" alt="李泓仪" width="200">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=280&h=280&fit=crop" alt="李泓仪">
                 </div>
                 <div>
                     <h1 class="name">李泓仪</h1>
-                    <p class="title-line">数据运营 | 产品分析师</p>
+                    <p class="title-line">产品运营 | 数据分析师</p>
                     <div class="contact-item">+86 19918089484（微信同步）</div>
-                    <div class="contact-item">+49 01708870234（微信同步）</div>
-                    <div class="contact-item">unclegreen777@gmail.com</div>
+                    <div class="contact-item">agclhongyi@163.com</div>
                 </div>
+                <nav class="nav-menu">
+                    <h3>导航</h3>
+                    <a href="#profile-zh" class="nav-item">个人简介</a>
+                    <a href="#education-zh" class="nav-item">教育背景</a>
+                    <a href="#competencies-zh" class="nav-item">核心能力</a>
+                    <a href="#portfolio-zh" class="nav-item">项目作品</a>
+                    <a href="#experience-zh" class="nav-item">实习经历</a>
+                    <a href="#skills-zh" class="nav-item">技能</a>
+                </nav>
             </header>
 
             <main class="content">
-                <!-- Profile Section -->
-                <section class="section">
+                <section class="section" id="profile-zh">
                     <h2 class="section-title">个人简介</h2>
                     <p style="font-size: 15px; color: #555; line-height: 1.9; text-align: justify;">
-                        具有跨境电商运营与产品分析双重背景的应届硕士毕业生。曾在Zalando德国总部实习，负责欧洲多市场选品分析与运营优化，通过数据驱动决策将CTR提升20%，退货率降低15%。擅长整合AI工具（ChatGPT、Claude）进行市场分析、文案生成和用户画像构建。拥有Shopify独立站搭建经验，熟悉从选品、建站、SEO到数据分析的全流程。本科期间获国家奖学金，多次在数学建模与数据分析竞赛中获奖。精通中英德三语，具备跨文化沟通能力，追求用数据与技术驱动业务增长。
+                        具有大数据心理学学科背景的应届硕士毕业生，专注于数据分析、产品设计与用户研究。拥有强大的数据敏感度和技术适应能力，在互联网、工程心理学、汽车HCI等多个领域积累了生成式AI设计和数字产品开发经验。曾在Zalando德国总部实习，通过数据驱动决策优化产品运营，CTR提升20%，退货率降低15%。擅长产品优化、市场分析与AI工具应用，包括大模型微调（毕业设计）、Prompt工程设计（网络说服研究课题）以及AI辅助的文案生成与用户画像构建。本科期间获国家奖学金，多次在数学建模、数据统计与市场调研竞赛中获奖。中文、英语均为工作语言，具备基本的德语交流能力及跨文化沟通经验，追求用数据与技术驱动业务增长。
                     </p>
                 </section>
 
-                <section class="section">
-                    <h2 class="section-title">Education</h2>
-
-                <section class="section">
-                    <h2 class="section-title">跨境电商核心能力</h2>
-                    <div class="competencies-grid">
-                        <div class="comp-card">
-                            <div class="comp-icon">🔍</div>
-                            <div class="comp-title">选品与市场分析</div>
-                            <div class="comp-desc">行业/竞品调研，利用AI工具筛选高潜SKU，评估成本/供应/定价/毛利与合规要求</div>
+                <section class="section" id="education-zh">
+                    <h2 class="section-title">教育背景</h2>
+                    <div class="edu-grid">
+                        <div class="edu-card">
+                            <div class="degree">硕士 · 大数据心理学</div>
+                            <div class="school">中国科学院大学 - 心理研究所</div>
+                            <div class="item-date">2023.09 - 至今</div>
+                            <div class="edu-details">
+                                <span class="highlight">GPA: 3.86</span> · 三篇第一作者论文（英文SCI期刊1区）在投<br>
+                                <strong>毕业论文：</strong>基于大模型微调的AI焦虑说服干预研究
+                            </div>
                         </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">📦</div>
-                            <div class="comp-title">商品运营与上新</div>
-                            <div class="comp-desc">建档上新，AI辅助完善标题/卖点/参数/素材；优化详情页提升转化率</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">📈</div>
-                            <div class="comp-title">数据驱动增长</div>
-                            <div class="comp-desc">跟踪曝光/点击/转化/客单/周转等核心指标，维护数据看板，AI辅助预测分析</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🎯</div>
-                            <div class="comp-title">产品线推广</div>
-                            <div class="comp-desc">策划活动与内容制作，配合多渠道投放，进行效果复盘与优化</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🤝</div>
-                            <div class="comp-title">跨部门协同</div>
-                            <div class="comp-desc">与供应链/平台/客服/技术协作，完善SOP流程，降低售后与投诉率</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🤖</div>
-                            <div class="comp-title">AI工具整合</div>
-                            <div class="comp-desc">擅长运用ChatGPT、Claude等AI工具进行文案生成、数据分析、用户画像构建</div>
+                        <div class="edu-card">
+                            <div class="degree">本科 · 应用心理学</div>
+                            <div class="school">西南交通大学</div>
+                            <div class="item-date">2019.09 - 2023.06</div>
+                            <div class="edu-details">
+                                <span class="highlight">GPA: 3.84/4.00（专业排名前5%）</span><br>
+                                国家奖学金 · 校三好学生标兵<br>
+                                "华数杯"数学建模竞赛国家一等奖 · 美国数学竞赛H奖(Honorable Mentions) · APMCM亚太数学建模竞赛三等奖 · 全国数据统计与分析竞赛二等奖（负责人）
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="section">
+                <section class="section" id="competencies-zh">
+                    <h2 class="section-title">核心能力</h2>
+                    <div class="competencies-grid">
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🤖</div>
+                            <div class="comp-title">AI工具应用与开发</div>
+                            <div class="comp-desc">大模型微调、Prompt工程、AI辅助文案生成、数据分析与用户画像构建</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>项目经验：</strong><br>
+                                    • <strong>大模型微调研究</strong>（硕士毕业设计）：基于大模型微调的AI焦虑说服干预研究，优化模型在心理健康领域的应用<br>
+                                    • <strong>Prompt工程设计</strong>：基于说服策略的大语言模型提示词设计项目，首次引入基于个体心理指标的个性化说服框架，使用率提升32%，认知负荷降低34%<br>
+                                    • <strong>AI辅助运营</strong>：Zalando实习期间，运用ChatGPT生成多语言商品标题与描述，优化详情页内容，CTR提升20%；利用Claude进行用户画像分析，精准定位目标客户群体
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">📈</div>
+                            <div class="comp-title">数据分析与建模</div>
+                            <div class="comp-desc">统计分析、数学建模、数据可视化、预测分析</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>竞赛获奖：</strong><br>
+                                    • "华数杯"全国大学生数学建模竞赛<strong>国家一等奖</strong><br>
+                                    • 美国大学生数学竞赛<strong>H奖(Honorable Mentions)</strong><br>
+                                    • APMCM亚太地区数学建模竞赛<strong>三等奖</strong><br>
+                                    • 全国大学生数据统计与分析竞赛<strong>国家二等奖（负责人）</strong><br><br>
+                                    <strong>项目经验：</strong><br>
+                                    • <strong>工业企业数据分析APP</strong>（项目负责人）：从0到1搭建产品框架，设计12个联动功能模板，处理500万+工业企业数据，企业内使用率达64%，获第十二届大学生服务外包创新创业大赛国家三等奖
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🔍</div>
+                            <div class="comp-title">市场研究与分析</div>
+                            <div class="comp-desc">行业调研、竞品分析、用户需求挖掘、市场趋势预测</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>项目经验：</strong><br>
+                                    • <strong>德国时尚零售市场分析</strong>（Zalando）：针对德国市场进行深度调研，分析本土消费者购物偏好、季节性趋势和价格敏感度；通过竞品对标（H&M、Zara等）识别市场机会，为选品策略提供数据支持，优化德国站点转化率<br>
+                                    • <strong>市场调查竞赛</strong>：获第十二届全国大学生市场调查与分析大赛<strong>国家三等奖（负责人）</strong>，主导完成从问卷设计、数据收集到分析报告的全流程<br>
+                                    • <strong>大模型提示词需求研究</strong>：在Reddit等网络社区挖掘AI热点话题，通过深度访谈锚定用户痛点，产出3份调研报告
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">📦</div>
+                            <div class="comp-title">产品设计与优化</div>
+                            <div class="comp-desc">需求分析、原型设计、用户体验优化、产品迭代</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>项目经验：</strong><br>
+                                    • <strong>大模型说服系统</strong>：独立设计功能模块，制作产品原型图与PRD，优化用户情感分析、个性化推荐、交互反馈三大模块，用户满意度提高20%<br>
+                                    • <strong>工业数据分析APP</strong>：主导产品设计，从需求调研（访谈60+用户）到MVP方案产出，设计用户关键路径，累计进行10+场可用性测试和A/B test<br>
+                                    • <strong>Shopify独立站</strong>：完成袜子、宠物玩具两个垂直品类独立站的全流程搭建，包括选品、页面设计、SEO优化、支付集成
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🎯</div>
+                            <div class="comp-title">内容运营与推广</div>
+                            <div class="comp-desc">社交媒体运营、内容创作、活动策划、用户增长</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>项目经验：</strong><br>
+                                    • <strong>小红书内容创作</strong>：发布个人摄影与生活方式作品，半个月内产出<strong>2条千赞爆款帖子</strong>，展现内容创作与用户触达能力<br>
+                                    • <strong>心理咨询中心新媒体运营</strong>：设计活动主题结合时事热点，每周发布3篇公众号文章，推文平均阅读量3000+，累计拉新超1万人<br>
+                                    • <strong>MBTI职业规划活动</strong>：策划"性格与职场：MBTI职业大揭秘"活动，邀请专业人士分享，活动浏览量1万+，参与人数500+<br>
+                                    • <strong>项目管理</strong>：作为PM牵头多个小组进行会议对齐，项目设计提前2周完成，比预定工期提前20%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🤝</div>
+                            <div class="comp-title">跨部门协作</div>
+                            <div class="comp-desc">项目管理、团队协调、跨文化沟通、流程优化</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>项目经验：</strong><br>
+                                    • <strong>Zalando跨国协作</strong>：协调中德团队完成品牌内容本地化项目，支持供应链对接与合规审核，退货率降低15%<br>
+                                    • <strong>世界动力电池大会</strong>：联合主办2024年大会，协调欧阳明高院士团队与宁德时代、比亚迪等企业的合作洽谈<br>
+                                    • <strong>跨团队产品迭代</strong>：处理多个小组的需求对齐，优化产品迭代流程
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="portfolio-zh">
                     <h2 class="section-title">项目作品集</h2>
                     <div class="projects-grid">
                         <div class="project-card" onclick="openModal()">
@@ -457,33 +643,9 @@
                     </div>
                 </section>
 
-                <section class="section">
-                    <h2 class="section-title">教育背景</h2>
-                    <div class="edu-grid">
-                        <div class="edu-card">
-                            <div class="degree">硕士 · 大数据心理学</div>
-                            <div class="school">中国科学院大学 - 心理研究所</div>
-                            <div class="item-date">2023.09 - 至今</div>
-                            <div class="edu-details">
-                                <span class="highlight">GPA: 3.86</span> · 三篇第一作者论文（英文SCI期刊1区）在投
-                            </div>
-                        </div>
-                        <div class="edu-card">
-                            <div class="degree">本科 · 应用心理学</div>
-                            <div class="school">西南交通大学</div>
-                            <div class="item-date">2019.09 - 2023.06</div>
-                            <div class="edu-details">
-                                <span class="highlight">GPA: 3.84/4.00（专业排名前5%）</span><br>
-                                国家奖学金 · 校三好学生标兵<br>
-                                "华数杯"全国大学生数学建模竞赛一等奖 · 美国大学生数学竞赛H奖 · APMCM亚太地区数学建模竞赛三等奖 · 全国大学生数据统计与分析竞赛二等奖
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="section">
+                <section class="section" id="experience-zh">
                     <h2 class="section-title">实习经历</h2>
-                    <div class="timeline-item">
+		    <div class="timeline-item">
                         <div class="item-header">
                             <div class="item-title">国际运营实习生</div>
                             <div class="item-date">2025.06 - 2025.09</div>
@@ -491,21 +653,55 @@
                         <div class="item-subtitle">Zalando SE · 德国柏林</div>
                         <div class="item-content">
                             <ul>
-                                <li>负责欧洲多市场（德国、法国、意大利）服饰类SKU的选品与上新分析</li>
-                                <li>协助制定跨境产品定价与利润优化策略，<span class="highlight">减少退货率约15%</span></li>
-                                <li>运用Excel与Python进行指标分析，<span class="highlight">提升CTR约20%</span></li>
-                                <li>参与品牌内容本地化项目，协调中德团队素材审核与活动策划</li>
+                                <li>负责欧洲多市场（德国、法国、意大利）服饰类SKU的选品与上新分析，跟踪价格波动、库存及用户偏好变化</li>
+                                <li>协助制定跨境产品定价与利润优化策略，支持供应链对接与合规审核，<span class="highlight">减少退货率约15%</span></li>
+                                <li>运用Excel与Python进行销量、点击率、转化率等指标分析，优化商品详情页素材与标题，<span class="highlight">提升CTR约20%</span></li>
+                                <li>参与品牌内容本地化项目，负责协调中德团队素材审核与活动策划，提高多语种站点流量与曝光</li>
+                                <li>独立撰写周度市场分析报告并提出复盘优化建议</li>
                             </ul>
                         </div>
                     </div>
+
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">产品助理（兼职）</div>
+                            <div class="item-date">2024.06 - 2024.09</div>
+                        </div>
+                        <div class="item-subtitle">四川新能源汽车创新中心 · 欧阳明高院士工作站</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>联合主办2024世界动力电池大会，针对新能源汽车领域的人机交互产品开展研究并进行专题演讲</li>
+                                <li>与宁德时代、比亚迪等新能源汽车制造商接洽洽谈合作事宜，促进产学研协同创新</li>
+                                <li>协助欧阳明高院士团队进行新能源汽车HCI产品用户体验研究，收集并分析用户反馈数据</li>
+                                <li>参与行业关键利益相关方讨论，促进产业链上下游协作与技术交流</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">Product Researcher</div>
+                            <div class="item-date">2023.09 - 2024.11</div>
+                        </div>
+                        <div class="item-subtitle">中国科学院心理研究所</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>设计基于用户心理特征的个性化LLM提示词框架，优化AI说服沟通效果</li>
+                                <li>产出3份调研报告，分析30+信息标签与20类心理特质模型，参与产品原型设计与迭代开发</li>
+                                <li>优化用户情感分析、个性化推荐、交互反馈三大功能模块，<span class="highlight">使用率提升32%，用户满意度提高20%，认知负荷评分降低34%</span></li>
+                            </ul>
+                        </div>
+                    </div>
+		
+
                 </section>
 
-                <section class="section">
+                <section class="section" id="skills-zh">
                     <h2 class="section-title">技能</h2>
                     <div class="skills-grid">
                         <div class="skill-card">
                             <div class="skill-name">语言能力</div>
-                            <div class="skill-list">英语（雅思7.0）<br>德语基础交流<br>跨文化沟通经验</div>
+                            <div class="skill-list">中文（母语，工作语言）<br>英语（雅思7.0，工作语言）<br>德语（基础交流）<br>跨文化沟通经验</div>
                         </div>
                         <div class="skill-card">
                             <div class="skill-name">编程语言</div>
@@ -528,62 +724,153 @@
         <div class="lang-content" data-lang-content="en">
             <header class="header">
                 <div class="photo-wrapper">
-                    <img src="assets/photo1.jpg" alt="Hongyi Li">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=280&h=280&fit=crop" alt="Hongyi Li">
                 </div>
                 <div>
                     <h1 class="name">Hongyi Li</h1>
-                    <p class="title-line">Cross-border E-commerce Operations | Product Analyst</p>
+                    <p class="title-line">Product Operations | Data Analyst</p>
                     <div class="contact-item">+86 19918089484 (WeChat)</div>
                     <div class="contact-item">agclhongyi@163.com</div>
                 </div>
+                <nav class="nav-menu">
+                    <h3>Menu</h3>
+                    <a href="#profile-en" class="nav-item">Profile</a>
+                    <a href="#education-en" class="nav-item">Education</a>
+                    <a href="#competencies-en" class="nav-item">Competencies</a>
+                    <a href="#portfolio-en" class="nav-item">Portfolio</a>
+                    <a href="#experience-en" class="nav-item">Experience</a>
+                    <a href="#skills-en" class="nav-item">Skills</a>
+                </nav>
             </header>
 
             <main class="content">
-                <!-- Profile Section -->
-                <section class="section">
+                <section class="section" id="profile-en">
                     <h2 class="section-title">Profile</h2>
                     <p style="font-size: 15px; color: #555; line-height: 1.9; text-align: justify;">
-                        Recent master's graduate with dual expertise in cross-border e-commerce operations and product analysis. Completed internship at Zalando HQ in Berlin, managing multi-market product selection and operational optimization across Europe, achieving a 20% CTR increase and 15% return rate reduction through data-driven strategies. Proficient in leveraging AI tools (ChatGPT, Claude) for market analysis, copywriting, and user persona development. Experienced in full-cycle Shopify store development from product sourcing to SEO and analytics. National Scholarship recipient with multiple awards in mathematical modeling and data analysis competitions. Trilingual (Chinese, English, German) with proven cross-cultural communication skills, passionate about driving business growth through data and technology.
+                        Recent master's graduate in Big Data Psychology with expertise in data analysis, product design, and user research. Strong data sensitivity and technical adaptability, with experience in generative AI design and digital product development across industries including internet, engineering psychology, and automotive HCI. Completed internship at Zalando HQ in Berlin, achieving 20% CTR increase and 15% return rate reduction through data-driven optimization. Skilled in product optimization, market analysis, and AI tool applications including LLM fine-tuning (thesis), prompt engineering (research project), and AI-assisted copywriting and user persona development. National Scholarship recipient with multiple awards in mathematical modeling, data statistics, and market research competitions. Fluent in Chinese and English as working languages, with basic German communication skills and proven cross-cultural experience, passionate about driving business growth through data and technology.
                     </p>
                 </section>
 
-                <section class="section">
-                    <h2 class="section-title">Core Competencies</h2>
-                    <div class="competencies-grid">
-                        <div class="comp-card">
-                            <div class="comp-icon">🔍</div>
-                            <div class="comp-title">Product Selection & Analysis</div>
-                            <div class="comp-desc">Industry/competitor research, AI-assisted high-potential SKU screening, cost/supply/pricing/margin evaluation</div>
+                <section class="section" id="education-en">
+                    <h2 class="section-title">Education</h2>
+                    <div class="edu-grid">
+                        <div class="edu-card">
+                            <div class="degree">M.S. in Big Data Psychology</div>
+                            <div class="school">Chinese Academy of Sciences</div>
+                            <div class="item-date">2023.09 - Present</div>
+                            <div class="edu-details">
+                                <span class="highlight">GPA: 3.86</span> · 3 first-author papers (SCI Q1) under review<br>
+                                <strong>Thesis:</strong> AI Anxiety Persuasion Intervention Based on LLM Fine-tuning
+                            </div>
                         </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">📦</div>
-                            <div class="comp-title">Product Operations</div>
-                            <div class="comp-desc">Listing optimization with AI-assisted title/feature/asset creation; conversion rate optimization</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">📈</div>
-                            <div class="comp-title">Data-driven Growth</div>
-                            <div class="comp-desc">Track exposure/CTR/conversion/AOV metrics, maintain dashboards, AI-assisted predictive analysis</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🎯</div>
-                            <div class="comp-title">Product Promotion</div>
-                            <div class="comp-desc">Campaign planning, multi-channel content creation, performance review and optimization</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🤝</div>
-                            <div class="comp-title">Cross-functional Collaboration</div>
-                            <div class="comp-desc">Collaborate with supply chain/platform/CS/tech teams, optimize SOPs, reduce returns</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🤖</div>
-                            <div class="comp-title">AI Integration</div>
-                            <div class="comp-desc">Proficient in ChatGPT, Claude for copywriting, data analysis, user persona development</div>
+                        <div class="edu-card">
+                            <div class="degree">B.S. in Applied Psychology</div>
+                            <div class="school">Southwest Jiaotong University</div>
+                            <div class="item-date">2019.09 - 2023.06</div>
+                            <div class="edu-details">
+                                <span class="highlight">GPA: 3.84/4.00 (Top 5%)</span><br>
+                                Chinese National Scholarship<br>
+                                1st Prize in National Mathematical Modeling · Honorable Mentions in American MCM · 3rd Prize in APMCM · 2nd Prize in National Data Statistics Competition (Team Leader)
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="section">
+                <section class="section" id="competencies-en">
+                    <h2 class="section-title">Core Competencies</h2>
+                    <div class="competencies-grid">
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🤖</div>
+                            <div class="comp-title">AI Tools & Development</div>
+                            <div class="comp-desc">LLM fine-tuning, Prompt engineering, AI-assisted copywriting, data analysis & user persona development</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Projects:</strong><br>
+                                    • <strong>LLM Fine-tuning Research</strong> (Master's Thesis): AI anxiety persuasion intervention based on LLM fine-tuning for mental health applications<br>
+                                    • <strong>Prompt Engineering Design</strong>: LLM prompt design project based on persuasion strategies, introduced personalized persuasion framework based on psychological indicators, 32% usage increase, 34% cognitive load reduction<br>
+                                    • <strong>AI-assisted Operations</strong>: Used ChatGPT for multilingual product titles at Zalando, 20% CTR increase; leveraged Claude for user persona analysis
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">📈</div>
+                            <div class="comp-title">Data Analysis & Modeling</div>
+                            <div class="comp-desc">Statistical analysis, mathematical modeling, data visualization, predictive analytics</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Awards:</strong><br>
+                                    • <strong>1st Prize</strong> in National Mathematical Modeling Competition<br>
+                                    • <strong>Honorable Mentions</strong> in American MCM<br>
+                                    • <strong>3rd Prize</strong> in APMCM Asia-Pacific Mathematical Modeling<br>
+                                    • <strong>2nd Prize (Team Leader)</strong> in National Data Statistics Competition<br><br>
+                                    <strong>Projects:</strong><br>
+                                    • <strong>Industrial Data Analysis App</strong> (Project Leader): Built framework from scratch with 12 templates, processed 5M+ data points, 64% adoption rate, National 3rd Prize
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🔍</div>
+                            <div class="comp-title">Market Research & Analysis</div>
+                            <div class="comp-desc">Industry research, competitive analysis, user needs discovery, market trend forecasting</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Projects:</strong><br>
+                                    • <strong>German Fashion Retail Analysis</strong> (Zalando): Deep dive into German market consumer preferences, seasonal trends, price sensitivity; competitive benchmarking with H&M, Zara to identify opportunities<br>
+                                    • <strong>Market Research Competition</strong>: <strong>National 3rd Prize (Team Leader)</strong> in National Market Research Competition<br>
+                                    • <strong>LLM Prompt Research</strong>: AI topic mining in Reddit communities, conducted in-depth interviews, produced 3 research reports
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">📦</div>
+                            <div class="comp-title">Product Design & Optimization</div>
+                            <div class="comp-desc">Requirements analysis, prototyping, UX optimization, product iteration</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Projects:</strong><br>
+                                    • <strong>LLM Persuasion System</strong>: Designed functional modules, created prototypes and PRDs, optimized three modules, 20% satisfaction increase<br>
+                                    • <strong>Industrial Data App</strong>: Led product design from user research (60+ interviews) to MVP, designed user flows, conducted 10+ usability tests<br>
+                                    • <strong>Shopify Stores</strong>: Full-cycle development of socks and pet toys stores including sourcing, design, SEO, payment integration
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🎯</div>
+                            <div class="comp-title">Content Operations & Promotion</div>
+                            <div class="comp-desc">Social media operations, content creation, campaign planning, user growth</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Projects:</strong><br>
+                                    • <strong>Xiaohongshu Content Creation</strong>: Published photography and lifestyle content, <strong>2 viral posts with 1000+ likes</strong> within 2 weeks<br>
+                                    • <strong>Psychology Center Social Media</strong>: Weekly content strategy, 3 WeChat articles/week, average 3000+ views, 10K+ new followers<br>
+                                    • <strong>MBTI Career Campaign</strong>: Planned "Personality & Career: MBTI Career Secrets" event, 10K+ views, 500+ participants<br>
+                                    • <strong>Project Management</strong>: Led cross-team alignment as PM, completed 20% ahead of schedule
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🤝</div>
+                            <div class="comp-title">Cross-functional Collaboration</div>
+                            <div class="comp-desc">Project management, team coordination, cross-cultural communication, process optimization</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Projects:</strong><br>
+                                    • <strong>Zalando Cross-border Team</strong>: Coordinated CN-DE teams for brand localization, 15% return rate reduction<br>
+                                    • <strong>World Power Battery Conference</strong>: Co-organized 2024 conference, coordinated partnerships with CATL, BYD<br>
+                                    • <strong>Cross-team Product Iteration</strong>: Managed requirements alignment across multiple teams
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="portfolio-en">
                     <h2 class="section-title">Portfolio</h2>
                     <div class="projects-grid">
                         <div class="project-card" onclick="openModal()">
@@ -627,29 +914,8 @@
                         </div>
                     </div>
                 </section>
-                    <div class="edu-grid">
-                        <div class="edu-card">
-                            <div class="degree">M.S. in Big Data Psychology</div>
-                            <div class="school">Chinese Academy of Sciences</div>
-                            <div class="item-date">2023.09 - Present</div>
-                            <div class="edu-details">
-                                <span class="highlight">GPA: 3.86</span> · 3 first-author papers (SCI Q1) under review
-                            </div>
-                        </div>
-                        <div class="edu-card">
-                            <div class="degree">B.S. in Applied Psychology</div>
-                            <div class="school">Southwest Jiaotong University</div>
-                            <div class="item-date">2019.09 - 2023.06</div>
-                            <div class="edu-details">
-                                <span class="highlight">GPA: 3.84/4.00 (Top 5%)</span><br>
-                                Chinese National Scholarship<br>
-                                1st Prize in National Mathematical Modeling Competition · Honorable Mentions in American MCM · 3rd Prize in APMCM Asia-Pacific Mathematical Modeling · 2nd Prize in National Data Statistics and Analysis Competition
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                <section class="section">
+                <section class="section" id="experience-en">
                     <h2 class="section-title">Experience</h2>
                     <div class="timeline-item">
                         <div class="item-header">
@@ -659,21 +925,53 @@
                         <div class="item-subtitle">Zalando SE · Berlin, Germany</div>
                         <div class="item-content">
                             <ul>
-                                <li>Managed SKU selection across EU markets (DE, FR, IT)</li>
-                                <li>Optimized pricing strategies, <span class="highlight">reduced return rate by 15%</span></li>
-                                <li>Conducted data analysis with Excel & Python, <span class="highlight">increased CTR by 20%</span></li>
-                                <li>Coordinated CN-DE teams for content localization</li>
+                                <li>Managed SKU selection and listing analysis across European markets (DE, FR, IT), tracking price fluctuations, inventory, and user preferences</li>
+                                <li>Assisted in cross-border product pricing and profit optimization strategies, supporting supply chain coordination and compliance review, <span class="highlight">reduced return rate by 15%</span></li>
+                                <li>Conducted sales, CTR, and conversion analysis using Excel & Python, optimized product page assets and titles, <span class="highlight">increased CTR by 20%</span></li>
+                                <li>Participated in brand content localization projects, coordinated CN-DE teams for asset review and campaign planning</li>
+                                <li>Authored weekly market analysis reports with optimization recommendations</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">Product Analyst (Part-Time)</div>
+                            <div class="item-date">2024.06 - 2024.09</div>
+                        </div>
+                        <div class="item-subtitle">Sichuan New Energy Vehicle Innovation Center · Academician Ouyang Minggao's Workstation</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Co-organized the 2024 World Power Battery Conference, conducted research and presented on HCI products in new energy vehicles</li>
+                                <li>Engaged with CATL, BYD, and other NEV manufacturers for collaboration discussions, promoting industry-academia-research synergy</li>
+                                <li>Assisted Academician Ouyang's team in NEV HCI product UX research, collected and analyzed user feedback data</li>
+                                <li>Facilitated discussions among key stakeholders, fostering industry collaboration across the value chain</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">Product Researcher</div>
+                            <div class="item-date">2023.09 - 2024.11</div>
+                        </div>
+                        <div class="item-subtitle">Institute of Psychology, Chinese Academy of Sciences</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Designed personalized LLM prompt framework based on user psychological profiles to optimize AI persuasive communication</li>
+                                <li>Produced 3 research reports analyzing 30+ information tags and 20 psychological traits, contributed to prototype design and iterative development</li>
+                                <li>Enhanced emotion analysis, personalized recommendation, and interaction feedback modules, achieving <span class="highlight">32% usage increase, 20% satisfaction boost, and 34% cognitive load reduction</span></li>
                             </ul>
                         </div>
                     </div>
                 </section>
 
-                <section class="section">
+                <section class="section" id="skills-en">
                     <h2 class="section-title">Skills</h2>
                     <div class="skills-grid">
                         <div class="skill-card">
                             <div class="skill-name">Languages</div>
-                            <div class="skill-list">English (IELTS 7.0)<br>German (Basic)<br>Mandarin (Native)</div>
+                            <div class="skill-list">Chinese (Native, Working)<br>English (IELTS 7.0, Working)<br>German (Basic Communication)<br>Cross-cultural Experience</div>
                         </div>
                         <div class="skill-card">
                             <div class="skill-name">Programming</div>
@@ -696,62 +994,137 @@
         <div class="lang-content" data-lang-content="de">
             <header class="header">
                 <div class="photo-wrapper">
-                    <img src="assets/photo1.jpg" alt="Hongyi Li">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=280&h=280&fit=crop" alt="Hongyi Li">
                 </div>
                 <div>
                     <h1 class="name">Hongyi Li</h1>
-                    <p class="title-line">E-Commerce Operations | Produktanalyst</p>
+                    <p class="title-line">Produktoperationen | Datenanalyst</p>
                     <div class="contact-item">+86 19918089484 (WeChat)</div>
                     <div class="contact-item">agclhongyi@163.com</div>
                 </div>
+                <nav class="nav-menu">
+                    <h3>Menü</h3>
+                    <a href="#profile-de" class="nav-item">Profil</a>
+                    <a href="#education-de" class="nav-item">Ausbildung</a>
+                    <a href="#competencies-de" class="nav-item">Kompetenzen</a>
+                    <a href="#portfolio-de" class="nav-item">Portfolio</a>
+                    <a href="#experience-de" class="nav-item">Erfahrung</a>
+                    <a href="#skills-de" class="nav-item">Fähigkeiten</a>
+                </nav>
             </header>
 
             <main class="content">
-                <!-- Profile Section -->
-                <section class="section">
+                <section class="section" id="profile-de">
                     <h2 class="section-title">Profil</h2>
                     <p style="font-size: 15px; color: #555; line-height: 1.9; text-align: justify;">
-                        Frischgebackene Masterabsolventin mit doppelter Expertise in Cross-Border-E-Commerce-Operations und Produktanalyse. Praktikum bei Zalando-Zentrale in Berlin absolviert, verantwortlich für Multi-Markt-Produktauswahl und operationale Optimierung in Europa, mit datengesteuerten Strategien 20% CTR-Steigerung und 15% Reduzierung der Retourenquote erreicht. Kompetent in der Nutzung von KI-Tools (ChatGPT, Claude) für Marktanalyse, Copywriting und User-Persona-Entwicklung. Erfahren in vollständiger Shopify-Store-Entwicklung von Produktbeschaffung bis SEO und Analytics. Erhielt Nationales Stipendium mit mehreren Auszeichnungen in mathematischer Modellierung und Datenanalyse-Wettbewerben. Dreisprachig (Chinesisch, Englisch, Deutsch) mit nachgewiesenen interkulturellen Kommunikationsfähigkeiten, leidenschaftlich daran interessiert, Geschäftswachstum durch Daten und Technologie voranzutreiben.
+                        Frischgebackene Masterabsolventin in Big Data Psychologie mit Expertise in Datenanalyse, Produktdesign und User Research. Starke Datensensibilität und technische Anpassungsfähigkeit mit Erfahrung in generativer KI-Gestaltung und digitaler Produktentwicklung in Branchen wie Internet, Ingenieurpsychologie und Automobil-HCI. Praktikum bei Zalando-Zentrale in Berlin mit 20% CTR-Steigerung und 15% Retourenreduktion durch datengesteuerte Optimierung. Kompetent in Produktoptimierung, Marktanalyse und KI-Tool-Anwendungen einschließlich LLM-Feinabstimmung (Masterarbeit), Prompt-Engineering (Forschungsprojekt) und KI-gestütztem Copywriting und User-Persona-Entwicklung. Erhielt Nationales Stipendium mit mehreren Auszeichnungen in mathematischer Modellierung, Datenstatistik und Marktforschungswettbewerben. Fließend in Chinesisch und Englisch als Arbeitssprachen, mit grundlegenden Deutschkenntnissen und nachgewiesener interkultureller Erfahrung, leidenschaftlich daran interessiert, Geschäftswachstum durch Daten und Technologie voranzutreiben.
                     </p>
                 </section>
 
-                <section class="section">
-                    <h2 class="section-title">Kernkompetenzen</h2>
-                    <div class="competencies-grid">
-                        <div class="comp-card">
-                            <div class="comp-icon">🔍</div>
-                            <div class="comp-title">Produktauswahl & Analyse</div>
-                            <div class="comp-desc">Markt-/Wettbewerbsanalyse, KI-gestützte SKU-Auswahl, Kosten-/Preis-/Margenbewertung</div>
+                <section class="section" id="education-de">
+                    <h2 class="section-title">Ausbildung</h2>
+                    <div class="edu-grid">
+                        <div class="edu-card">
+                            <div class="degree">Master in Big Data Psychologie</div>
+                            <div class="school">Chinesische Akademie der Wissenschaften</div>
+                            <div class="item-date">2023.09 - Heute</div>
+                            <div class="edu-details">
+                                <span class="highlight">GPA: 3.86</span> · 3 Erstautor-Papers (SCI Q1) eingereicht<br>
+                                <strong>Masterarbeit:</strong> KI-Angst-Überzeugungsintervention basierend auf LLM-Feinabstimmung
+                            </div>
                         </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">📦</div>
-                            <div class="comp-title">Produktbetrieb</div>
-                            <div class="comp-desc">Listing-Optimierung mit KI-Unterstützung, Conversion-Rate-Optimierung</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">📈</div>
-                            <div class="comp-title">Datengesteuertes Wachstum</div>
-                            <div class="comp-desc">KPI-Tracking, Dashboard-Pflege, KI-gestützte Prognoseanalyse</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🎯</div>
-                            <div class="comp-title">Produktwerbung</div>
-                            <div class="comp-desc">Kampagnenplanung, Multi-Channel-Content, Performance-Review</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🤝</div>
-                            <div class="comp-title">Zusammenarbeit</div>
-                            <div class="comp-desc">Koordination mit Supply Chain/Platform/CS/Tech-Teams, SOP-Optimierung</div>
-                        </div>
-                        <div class="comp-card">
-                            <div class="comp-icon">🤖</div>
-                            <div class="comp-title">KI-Integration</div>
-                            <div class="comp-desc">Erfahrung mit ChatGPT, Claude für Copywriting, Datenanalyse, Persona-Entwicklung</div>
+                        <div class="edu-card">
+                            <div class="degree">Bachelor in Angewandter Psychologie</div>
+                            <div class="school">Southwest Jiaotong Universität</div>
+                            <div class="item-date">2019.09 - 2023.06</div>
+                            <div class="edu-details">
+                                <span class="highlight">GPA: 3.84/4.00 (Top 5%)</span><br>
+                                Nationales Stipendium<br>
+                                1. Preis im Nationalen Mathematischen Modellierungswettbewerb · Honorable Mentions im American MCM · 3. Preis im APMCM · 2. Preis im Nationalen Datenstatistikwettbewerb (Teamleiter)
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="section">
+                <section class="section" id="competencies-de">
+                    <h2 class="section-title">Kernkompetenzen</h2>
+                    <div class="competencies-grid">
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🔍</div>
+                            <div class="comp-title">Produktauswahl & Analyse</div>
+                            <div class="comp-desc">Markt-/Wettbewerbsanalyse, KI-gestützte SKU-Auswahl, Kosten-/Preis-/Margenbewertung</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Kernfähigkeiten:</strong> Markttrendanalyse, Wettbewerbsbenchmarking, KI-gestütztes Data Mining<br>
+                                    <strong>Projekt:</strong> Multi-Markt-Produktauswahl bei Zalando mit Python-Datenanalyse
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">📦</div>
+                            <div class="comp-title">Produktbetrieb</div>
+                            <div class="comp-desc">Listing-Optimierung mit KI-Unterstützung, Conversion-Rate-Optimierung</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Kernfähigkeiten:</strong> Produktinformationsarchitektur, Content-Optimierung, A/B-Testing<br>
+                                    <strong>Projekt:</strong> Produktseitenoptimierung mit KI-generierten mehrsprachigen Inhalten, 20% CTR-Steigerung
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">📈</div>
+                            <div class="comp-title">Datengesteuertes Wachstum</div>
+                            <div class="comp-desc">KPI-Tracking, Dashboard-Pflege, KI-gestützte Prognoseanalyse</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Kernfähigkeiten:</strong> Datenanalyse, Dashboard-Entwicklung, Predictive Modeling<br>
+                                    <strong>Projekt:</strong> Industrielle Datenanalyse-App mit 5M+ Datensätzen und Echtzeit-Dashboards, 64% Akzeptanzrate
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🎯</div>
+                            <div class="comp-title">Produktwerbung</div>
+                            <div class="comp-desc">Kampagnenplanung, Multi-Channel-Content, Performance-Review</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Kernfähigkeiten:</strong> Kampagnenplanung, Content-Marketing, Performance-Bewertung<br>
+                                    <strong>Projekt:</strong> Social-Media-Operations mit "MBTI-Karriere"-Kampagne, 10K+ Views, 500+ Teilnehmer
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🤝</div>
+                            <div class="comp-title">Zusammenarbeit</div>
+                            <div class="comp-desc">Koordination mit Supply Chain/Platform/CS/Tech-Teams, SOP-Optimierung</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Kernfähigkeiten:</strong> Projektmanagement, Prozessoptimierung, Teamzusammenarbeit<br>
+                                    <strong>Projekt:</strong> Grenzüberschreitende Teamkoordination bei Zalando, 15% Retourenreduktion
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comp-card" onclick="toggleCompDetail(this)">
+                            <span class="comp-expand">›</span>
+                            <div class="comp-icon">🤖</div>
+                            <div class="comp-title">KI-Integration</div>
+                            <div class="comp-desc">Erfahrung mit ChatGPT, Claude für Copywriting, Datenanalyse, Persona-Entwicklung</div>
+                            <div class="comp-details">
+                                <div class="comp-detail-content">
+                                    <strong>Kernfähigkeiten:</strong> Prompt-Engineering, KI-gestützte Entscheidungsfindung, Workflow-Automatisierung<br>
+                                    <strong>Projekt:</strong> LLM-Prompt-Design mit personalisiertem Überzeugungsrahmen, 32% Nutzungssteigerung
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="portfolio-de">
                     <h2 class="section-title">Portfolio</h2>
                     <div class="projects-grid">
                         <div class="project-card" onclick="openModal()">
@@ -795,28 +1168,8 @@
                         </div>
                     </div>
                 </section>
-                    <div class="edu-grid">
-                        <div class="edu-card">
-                            <div class="degree">Master in Big Data Psychologie</div>
-                            <div class="school">Chinesische Akademie der Wissenschaften</div>
-                            <div class="item-date">2023.09 - Heute</div>
-                            <div class="edu-details">
-                                <span class="highlight">GPA: 3.86</span> · 3 Erstautor-Papers (SCI Q1) eingereicht
-                            </div>
-                        </div>
-                        <div class="edu-card">
-                            <div class="degree">Bachelor in Angewandter Psychologie</div>
-                            <div class="school">Southwest Jiaotong Universität</div>
-                            <div class="item-date">2019.09 - 2023.06</div>
-                            <div class="edu-details">
-                                <span class="highlight">GPA: 3.84/4.00 (Rang 1/41)</span><br>
-                                Nationales Stipendium · Mathematische Modellierung 1. Preis
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                <section class="section">
+                <section class="section" id="experience-de">
                     <h2 class="section-title">Erfahrung</h2>
                     <div class="timeline-item">
                         <div class="item-header">
@@ -826,21 +1179,53 @@
                         <div class="item-subtitle">Zalando SE · Berlin, Deutschland</div>
                         <div class="item-content">
                             <ul>
-                                <li>SKU-Auswahl über EU-Märkte (DE, FR, IT)</li>
-                                <li>Preisstrategie-Optimierung, <span class="highlight">Retourenquote um 15% gesenkt</span></li>
-                                <li>Datenanalyse mit Excel & Python, <span class="highlight">CTR um 20% erhöht</span></li>
-                                <li>Koordination CN-DE-Teams für Content-Lokalisierung</li>
+                                <li>Verwaltung der SKU-Auswahl über EU-Märkte (DE, FR, IT), Verfolgung von Preisschwankungen, Lagerbestand und Nutzerpräferenzen</li>
+                                <li>Unterstützung bei grenzüberschreitenden Produkt-Preis- und Gewinnoptimierungsstrategien, <span class="highlight">Retourenquote um 15% gesenkt</span></li>
+                                <li>Durchführung von Verkaufs-, CTR- und Conversion-Analysen mit Excel & Python, <span class="highlight">CTR um 20% erhöht</span></li>
+                                <li>Teilnahme an Marken-Content-Lokalisierungsprojekten, Koordination CN-DE-Teams für Asset-Review und Kampagnenplanung</li>
+                                <li>Erstellung wöchentlicher Marktanalyseberichte mit Optimierungsempfehlungen</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">Produktanalyst (Teilzeit)</div>
+                            <div class="item-date">2024.06 - 2024.09</div>
+                        </div>
+                        <div class="item-subtitle">Sichuan New Energy Vehicle Innovation Center · Akademiker Ouyang Minggao Workstation</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Mitorganisation der 2024 World Power Battery Conference, Forschung und Präsentation zu HCI-Produkten im NEV-Sektor</li>
+                                <li>Zusammenarbeit mit CATL, BYD und anderen NEV-Herstellern für Kooperationsgespräche</li>
+                                <li>Unterstützung des Teams von Akademiker Ouyang bei NEV-HCI-Produkt-UX-Forschung</li>
+                                <li>Moderation von Diskussionen zwischen wichtigen Stakeholdern zur Förderung der Branchenzusammenarbeit</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">Produktforscher</div>
+                            <div class="item-date">2023.09 - 2024.11</div>
+                        </div>
+                        <div class="item-subtitle">Institut für Psychologie, Chinesische Akademie der Wissenschaften</div>
+                        <div class="item-content">
+                            <ul>
+                                <li>Entwicklung eines personalisierten LLM-Prompt-Frameworks basierend auf Nutzerprofilen</li>
+                                <li>Erstellung von 3 Forschungsberichten mit Analyse von 30+ Informations-Tags und 20 psychologischen Merkmalen</li>
+                                <li>Optimierung von drei Funktionsmodulen, <span class="highlight">32% Nutzungssteigerung, 20% Zufriedenheitserhöhung, 34% Reduzierung der kognitiven Belastung</span></li>
                             </ul>
                         </div>
                     </div>
                 </section>
 
-                <section class="section">
+                <section class="section" id="skills-de">
                     <h2 class="section-title">Fähigkeiten</h2>
                     <div class="skills-grid">
                         <div class="skill-card">
                             <div class="skill-name">Sprachen</div>
-                            <div class="skill-list">Englisch (IELTS 7.0)<br>Deutsch (Grundlagen)<br>Chinesisch (Muttersprache)</div>
+                            <div class="skill-list">Chinesisch (Muttersprache, Arbeitssprache)<br>Englisch (IELTS 7.0, Arbeitssprache)<br>Deutsch (Grundkommunikation)<br>Interkulturelle Erfahrung</div>
                         </div>
                         <div class="skill-card">
                             <div class="skill-name">Programmierung</div>
@@ -929,6 +1314,63 @@
                 closeModal();
             }
         }
+
+        // Toggle competency details
+        function toggleCompDetail(card) {
+            const details = card.querySelector('.comp-details');
+            const isActive = details.classList.contains('active');
+            
+            // Close all other details
+            document.querySelectorAll('.comp-details').forEach(d => d.classList.remove('active'));
+            
+            // Toggle current detail
+            if (!isActive) {
+                details.classList.add('active');
+            }
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active state
+                    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for active nav item
+        const sections = document.querySelectorAll('.section');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === `#${id}`) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
-</html>
+                        
